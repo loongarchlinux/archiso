@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
+ID=${ID:-1}
 
-iso_name="archlinux"
+iso_name="loongarchlinux"
 iso_label="ARCH_$(date +%Y%m)"
-iso_publisher="Arch Linux <https://archlinux.org>"
-iso_application="Arch Linux Live/Rescue CD"
-iso_version="$(date +%Y.%m.%d)"
+iso_publisher="LoongArchLinux <https://archlinux.org>"
+iso_application="LoongArchLinux Live/Rescue CD"
+iso_version="$(date +%Y.%m.%d).$ID"
 install_dir="arch"
 buildmodes=('iso')
 bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'

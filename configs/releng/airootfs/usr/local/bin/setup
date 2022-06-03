@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+if ! locale -a|grep zh_CN > /dev/null; then
+    sed -i \
+        -e 's/^#zh_CN.UTF-8/zh_CN.UTF-8/' \
+        -e 's/^#en_US.UTF-8/en_US.UTF-8/' \
+        /etc/locale.gen
+    locale-gen
+fi
+[ -x /usr/bin/fbterm ] && /usr/bin/fbterm -s 14 /usr/bin/archinstall

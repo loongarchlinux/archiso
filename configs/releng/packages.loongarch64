@@ -82,13 +82,13 @@ openssh
 #openvpn
 #partclone
 parted
-#partimage
+partimage
 pcsclite
 ppp
 pptpclient
-#pv
+pv
 #qemu-guest-agent
-#refind
+refind
 reflector
 reiserfsprogs
 rp-pppoe

@@ -2,7 +2,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-set -e -u
+#set -e -u
+set -x
 
 # Control the environment
 umask 0022

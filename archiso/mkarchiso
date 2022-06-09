@@ -647,6 +647,7 @@ _make_bootmode_uefi-la64.systemd-boot.esp() {
     # Copy kernel and initramfs to FAT image.
     # systemd-boot can only access files from the EFI system partition it was launched from.
     _make_boot_on_fat
+    _make_boot_on_iso9660
 
     _msg_info "Done! systemd-boot set up for UEFI booting successfully."
 }

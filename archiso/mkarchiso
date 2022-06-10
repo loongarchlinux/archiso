@@ -875,7 +875,6 @@ _make_bootmode_uefi-la64.systemd-boot.esp() {
     # Copy kernel and initramfs to FAT image.
     # systemd-boot can only access files from the EFI system partition it was launched from.
     _make_boot_on_fat
-    _make_boot_on_iso9660
 
     _msg_info "Done! systemd-boot set up for UEFI booting successfully."
 }
@@ -905,6 +904,7 @@ _make_bootmode_uefi-la64.systemd-boot.eltorito() {
              s|%ARCH%|${arch}|g" \
             "${_conf}" > "${isofs_dir}/loader/entries/${_conf##*/}"
     done
+    #_make_boot_on_iso9660
 
     # edk2-shell based UEFI shell
     # shellloongarch64.efi is picked up automatically when on /

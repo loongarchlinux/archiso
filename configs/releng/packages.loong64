@@ -21,7 +21,7 @@ dmraid
 dnsmasq
 dosfstools
 e2fsprogs
-#edk2-shell
+edk2-shell
 efibootmgr
 #espeakup
 ethtool

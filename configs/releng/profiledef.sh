@@ -9,9 +9,8 @@ iso_application="LoongArchLinux Live/Rescue CD"
 iso_version="$(date +%Y.%m.%d).$ID"
 install_dir="arch"
 buildmodes=('iso')
-bootmodes=('bios.syslinux.mbr' 'bios.syslinux.eltorito'
-           'uefi-ia32.grub.esp' 'uefi-x64.grub.esp'
-           'uefi-ia32.grub.eltorito' 'uefi-x64.grub.eltorito')
+bootmodes=('uefi-la64.grub.esp'
+           'uefi-la64.grub.eltorito')
 arch="loong64"
 pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"

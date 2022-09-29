@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
-ID=${ID:-1}
+VER=${ID:-1}
 
-iso_name="loongarchlinux"
+iso_name="archlinux"
 iso_label="ARCH_$(date +%Y%m)"
-iso_publisher="LoongArchLinux <https://archlinux.org>"
-iso_application="LoongArchLinux Live/Rescue CD"
-iso_version="$(date +%Y.%m.%d).$ID"
+iso_publisher="ArchLinux <https://archlinux.org>"
+iso_application="ArchLinux Live/Rescue CD"
+iso_version="$(date +%Y.%m.%d).$VER"
 install_dir="arch"
 buildmodes=('iso')
-bootmodes=('uefi-la64.grub.esp'
-           'uefi-la64.grub.eltorito')
+bootmodes=('uefi-loong64.grub.esp'
+           'uefi-loong64.grub.eltorito')
 arch="loong64"
 pacman_conf="pacman.conf"
 airootfs_image_type="squashfs"

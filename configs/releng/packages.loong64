@@ -28,6 +28,7 @@ ethtool
 exfatprogs
 f2fs-tools
 fatresize
+fbterm
 fsarchiver
 gnu-netcat
 gpart
@@ -120,6 +121,7 @@ vim
 wireless-regdb
 wireless_tools
 wpa_supplicant
+wqy-bitmapfont
 wvdial
 xfsprogs
 xl2tpd

@@ -6,5 +6,4 @@ if ! locale -a|grep zh_CN > /dev/null; then
         /etc/locale.gen
     locale-gen
 fi
-export LANG=zh_CN.UTF-8
-[ -x /usr/bin/fbterm ] && /usr/bin/fbterm /usr/bin/archinstall
+[ -x /usr/bin/fbterm ] && /usr/bin/fbterm -s 14 /usr/bin/archinstall

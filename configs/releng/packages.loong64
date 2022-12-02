@@ -8,7 +8,7 @@ bind
 brltty
 #broadcom-wl
 btrfs-progs
-#clonezilla
+clonezilla
 #cloud-init
 cryptsetup
 darkhttpd
@@ -23,7 +23,7 @@ dosfstools
 e2fsprogs
 edk2-shell
 efibootmgr
-#espeakup
+espeakup
 ethtool
 exfatprogs
 f2fs-tools
@@ -45,7 +45,7 @@ irssi
 iw
 iwd
 jfsutils
-#kitty-terminfo
+kitty-terminfo
 less
 lftp
 libfido2
@@ -80,17 +80,17 @@ ntfs-3g
 nvme-cli
 #open-iscsi
 #open-vm-tools
-#openconnect
+openconnect
 openssh
 #openvpn
-#partclone
+partclone
 parted
 partimage
 pcsclite
 ppp
 pptpclient
 pv
-#qemu-guest-agent
+qemu-guest-agent
 refind
 reflector
 reiserfsprogs
@@ -117,7 +117,7 @@ usbmuxd
 usbutils
 vim
 #virtualbox-guest-utils-nox
-#vpnc
+vpnc
 wireless-regdb
 wireless_tools
 wpa_supplicant

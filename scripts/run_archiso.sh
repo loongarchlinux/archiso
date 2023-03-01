@@ -45,11 +45,11 @@ cleanup_working_dir() {
 }
 
 copy_ovmf_vars() {
-    if [[ ! -f '/usr/share/edk2-ovmf/x64/OVMF_VARS.fd' ]]; then
+    if [[ ! -f '/usr/share/edk2-loongarch64/loongarch64/QEMU_VARS.fd' ]]; then
         printf 'ERROR: %s\n' "OVMF_VARS.fd not found. Install edk2-ovmf."
         exit 1
     fi
-    cp -av -- '/usr/share/edk2-ovmf/x64/OVMF_VARS.fd' "${working_dir}/"
+    cp -av -- '/usr/share/edk2-loongarch64/loongarch64/QEMU_VARS.fd' "${working_dir}/OVMF_VARS.fd"
 }
 
 check_image() {
@@ -70,12 +70,16 @@ run_image() {
             printf '%s\n' 'Using Secure Boot'
             local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.secboot.fd'
         else
-            local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.fd'
+            #local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.fd'
+	    local ovmf_code='/usr/share/edk2-loongarch64/loongarch64/QEMU_CODE.fd'
         fi
         qemu_options+=(
-            '-drive' "if=pflash,format=raw,unit=0,file=${ovmf_code},read-only=on"
-            '-drive' "if=pflash,format=raw,unit=1,file=${working_dir}/OVMF_VARS.fd"
-            '-global' "driver=cfi.pflash01,property=secure,value=${secure_boot}"
+#            '-drive' "if=pflash,format=raw,unit=0,file=${ovmf_code},read-only=on"
+#            '-drive' "if=pflash,format=raw,unit=1,file=${working_dir}/OVMF_VARS.fd"
+#            '-global' "driver=cfi.pflash01,property=secure,value=${secure_boot}"
+            '-blockdev' "node-name=libvirt-pflash0-storage,driver=file,filename=${working_dir}/OVMF_VARS.fd,auto-read-only=false,discard=unmap"
+            '-blockdev' "node-name=libvirt-pflash0-format,driver=raw,read-only=false,file=libvirt-pflash0-storage"
+            '-bios' "${ovmf_code}"
         )
     fi
 
@@ -93,25 +97,28 @@ run_image() {
         )
     fi
 
-    qemu-system-x86_64 \
+    qemu-system-loongarch64 \
         -boot order=d,menu=on,reboot-timeout=5000 \
         -m "size=3072,slots=0,maxmem=$((3072*1024*1024))" \
         -k en-us \
+        -cpu la464-loongarch-cpu \
         -name archiso,process=archiso_0 \
         -device virtio-scsi-pci,id=scsi0 \
         -device "scsi-${mediatype%rom},bus=scsi0.0,drive=${mediatype}0" \
         -drive "id=${mediatype}0,if=none,format=raw,media=${mediatype/hd/disk},read-only=on,file=${image}" \
         -display "${display}" \
-        -vga virtio \
+        -device virtio-gpu-pci \
         -audiodev pa,id=snd0 \
         -device ich9-intel-hda \
         -device hda-output,audiodev=snd0 \
+	-device nec-usb-xhci,id=xhci,addr=0x1b \
+	-device usb-tablet,id=tablet,bus=xhci.0,port=1 \
+	-device usb-kbd,id=keyboard,bus=xhci.0,port=2 \
         -device virtio-net-pci,romfile=,netdev=net0 -netdev user,id=net0,hostfwd=tcp::60022-:22 \
-        -machine type=q35,smm=on,accel=kvm,usb=on,pcspk-audiodev=snd0 \
-        -global ICH9-LPC.disable_s3=1 \
-        -enable-kvm \
+        -machine virt,pflash=libvirt-pflash0-format  \
         "${qemu_options[@]}" \
         -serial stdio \
+	-spice port=5920,disable-ticketing=on \
         -no-reboot
 }
 
@@ -121,7 +128,7 @@ accessibility=''
 boot_type='bios'
 mediatype='cdrom'
 secure_boot='off'
-display='sdl'
+display='gtk'
 qemu_options=()
 working_dir="$(mktemp -dt run_archiso.XXXXXXXXXX)"
 trap cleanup_working_dir EXIT

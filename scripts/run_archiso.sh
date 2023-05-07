@@ -45,11 +45,11 @@ cleanup_working_dir() {
 }
 
 copy_ovmf_vars() {
-    if [[ ! -f '/usr/share/edk2-loongarch64/loongarch64/QEMU_VARS.fd' ]]; then
+    if [[ ! -f '/usr/share/edk2/loongarch64/QEMU_VARS.fd' ]]; then
         printf 'ERROR: %s\n' "OVMF_VARS.fd not found. Install edk2-ovmf."
         exit 1
     fi
-    cp -av -- '/usr/share/edk2-loongarch64/loongarch64/QEMU_VARS.fd' "${working_dir}/OVMF_VARS.fd"
+    cp -av -- '/usr/share/edk2/loongarch64/QEMU_VARS.fd' "${working_dir}/OVMF_VARS.fd"
 }
 
 check_image() {
@@ -71,7 +71,7 @@ run_image() {
             local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.secboot.fd'
         else
             #local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.fd'
-	    local ovmf_code='/usr/share/edk2-loongarch64/loongarch64/QEMU_CODE.fd'
+	    local ovmf_code='/usr/share/edk2/loongarch64/QEMU_CODE.fd'
         fi
         qemu_options+=(
 #            '-drive' "if=pflash,format=raw,unit=0,file=${ovmf_code},read-only=on"

@@ -9,7 +9,7 @@ brltty
 #broadcom-wl
 btrfs-progs
 clonezilla
-#cloud-init
+cloud-init
 cryptsetup
 darkhttpd
 ddrescue
@@ -76,11 +76,11 @@ nilfs-utils
 nmap
 ntfs-3g
 nvme-cli
-#open-iscsi
+open-iscsi
 #open-vm-tools
 openconnect
 openssh
-#openvpn
+openvpn
 partclone
 parted
 partimage

@@ -1,5 +1,5 @@
 base
-#cloud-init
+cloud-init
 #hyperv
 linux
 linux-firmware
@@ -8,6 +8,6 @@ mkinitcpio-archiso
 #open-vm-tools
 openssh
 #pv
-#qemu-guest-agent
+qemu-guest-agent
 #syslinux
 #virtualbox-guest-utils-nox

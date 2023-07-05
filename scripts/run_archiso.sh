@@ -70,13 +70,9 @@ run_image() {
             printf '%s\n' 'Using Secure Boot'
             local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.secboot.fd'
         else
-            #local ovmf_code='/usr/share/edk2-ovmf/x64/OVMF_CODE.fd'
-	    local ovmf_code='/usr/share/edk2/loongarch64/QEMU_CODE.fd'
+            local ovmf_code='/usr/share/edk2/loongarch64/QEMU_CODE.fd'
         fi
         qemu_options+=(
-#            '-drive' "if=pflash,format=raw,unit=0,file=${ovmf_code},read-only=on"
-#            '-drive' "if=pflash,format=raw,unit=1,file=${working_dir}/OVMF_VARS.fd"
-#            '-global' "driver=cfi.pflash01,property=secure,value=${secure_boot}"
             '-blockdev' "node-name=libvirt-pflash0-storage,driver=file,filename=${working_dir}/OVMF_VARS.fd,auto-read-only=false,discard=unmap"
             '-blockdev' "node-name=libvirt-pflash0-format,driver=raw,read-only=false,file=libvirt-pflash0-storage"
             '-bios' "${ovmf_code}"
@@ -111,14 +107,14 @@ run_image() {
         -audiodev pa,id=snd0 \
         -device ich9-intel-hda \
         -device hda-output,audiodev=snd0 \
-	-device nec-usb-xhci,id=xhci,addr=0x1b \
-	-device usb-tablet,id=tablet,bus=xhci.0,port=1 \
-	-device usb-kbd,id=keyboard,bus=xhci.0,port=2 \
+        -device nec-usb-xhci,id=xhci,addr=0x1b \
+        -device usb-tablet,id=tablet,bus=xhci.0,port=1 \
+        -device usb-kbd,id=keyboard,bus=xhci.0,port=2 \
         -device virtio-net-pci,romfile=,netdev=net0 -netdev user,id=net0,hostfwd=tcp::60022-:22 \
         -machine virt,pflash=libvirt-pflash0-format  \
         "${qemu_options[@]}" \
         -serial stdio \
-	-spice port=5920,disable-ticketing=on \
+        -spice port=5920,disable-ticketing=on \
         -no-reboot
 }
 

@@ -6,4 +6,4 @@ if ! locale -a|grep zh_CN > /dev/null; then
         /etc/locale.gen
     locale-gen
 fi
-[ -x /usr/bin/fbterm ] && /usr/bin/fbterm -s 14 /usr/bin/archinstall
+/usr/bin/archinstall --skip-mirror-check

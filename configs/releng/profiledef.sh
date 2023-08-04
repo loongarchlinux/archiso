@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
-VER=${ID:-1}
 
 iso_name="archlinux"
 iso_label="ARCH_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
 iso_publisher="Loong Arch Linux <https://loongarchlinux.org>"
 iso_application="Arch Linux Live/Rescue CD"
-iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d).$VER"
+iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')
 bootmodes=('uefi-loong64.grub.esp'

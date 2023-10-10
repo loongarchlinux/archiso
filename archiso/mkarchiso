@@ -407,6 +407,9 @@ _make_customize_airootfs() {
         _msg_info "Running customize_airootfs.sh in '${pacstrap_dir}' chroot..."
         _msg_warning "customize_airootfs.sh is deprecated! Support for it will be removed in a future archiso version."
         chmod -f -- +x "${pacstrap_dir}/root/customize_airootfs.sh"
+        if [ -L "${pacstrap_dir}/etc/resolv.conf" ]; then
+            unlink "${pacstrap_dir}/etc/resolv.conf"
+        fi
         # Unset TMPDIR to work around https://bugs.archlinux.org/task/70580
         eval -- env -u TMPDIR arch-chroot "${pacstrap_dir}" "/root/customize_airootfs.sh"
         rm -- "${pacstrap_dir}/root/customize_airootfs.sh"

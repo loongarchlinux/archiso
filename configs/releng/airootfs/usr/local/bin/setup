@@ -6,4 +6,4 @@ if ! locale -a|grep zh_CN > /dev/null; then
         /etc/locale.gen
     locale-gen
 fi
-/usr/bin/archinstall --skip-mirror-check
+/usr/bin/archinstall --skip-version-check

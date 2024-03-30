@@ -4,4 +4,4 @@ if grep -Fqa 'accessibility=' /proc/cmdline &> /dev/null; then
 fi
 
 ~/.automated_script.sh
-/usr/bin/archinstall --skip-mirror-check
+/usr/bin/archinstall --skip-version-check

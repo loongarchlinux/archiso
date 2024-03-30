@@ -9,7 +9,7 @@ brltty
 #broadcom-wl
 btrfs-progs
 clonezilla
-#cloud-init
+cloud-init
 cryptsetup
 darkhttpd
 ddrescue

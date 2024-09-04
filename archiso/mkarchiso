@@ -739,6 +739,7 @@ _make_bootmode_uefi-loong64.grub.esp() {
                       -o "${work_dir}/BOOTLOONGARCH64.EFI" "boot/grub/grub.cfg=${work_dir}/grub-embed.cfg"
     # Add GRUB to the list of files used to calculate the required FAT image size.
     efiboot_files+=("${work_dir}/BOOTLOONGARCH64.EFI"
+		    "${profile}/../../extra/backuploongarch64.efi"
                     "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi")
 
     efiboot_imgsize="$(du -bcs -- "${efiboot_files[@]}" 2>/dev/null | awk 'END { print $1 }')"
@@ -754,6 +755,15 @@ _make_bootmode_uefi-loong64.grub.esp() {
 
     if [[ -e "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" ]]; then
         mcopy -i "${efibootimg}" "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" ::/shellloong64.efi
+    fi
+    if [[ -e "${profile}/../../extra/backuploongarch64.efi" ]]; then
+	mcopy -i "${efibootimg}" "${profile}/../../extra/backuploongarch64.efi" ::/EFI/BACKUPLOONGARCH64.EFI
+    fi
+    if [[ -e "${profile}/../../extra/ipxe-arch.efi" ]]; then
+	mcopy -i "${efibootimg}" "${profile}/../../extra/ipxe-arch.efi" ::/ipxe-arch.efi
+    fi
+    if [[ -e "${profile}/../../extra/memtest.efi" ]]; then
+	mcopy -i "${efibootimg}" "${profile}/../../extra/memtest.efi" ::/memtest.efi
     fi
 
     # Add other aditional/extra files to ${install_dir}/boot/
@@ -791,6 +801,15 @@ _make_bootmode_uefi-loong64.grub.eltorito() {
     # edk2-shell based UEFI shell
     if [[ -e "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" ]]; then
         install -m 0644 -- "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" "${isofs_dir}/shellloong64.efi"
+    fi
+    if [[ -e "${profile}/../../extra/backuploongarch64.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/backuploongarch64.efi" "${isofs_dir}/EFI/BACKUPLOONGARCH64.EFI"
+    fi
+    if [[ -e "${profile}/../../extra/ipxe-arch.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/ipxe-arch.efi" "${isofs_dir}/ipxe-arch.efi"
+    fi
+    if [[ -e "${profile}/../../extra/memtest.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/memtest.efi" "${isofs_dir}/memtest.efi"
     fi
 
     _msg_info "Done!"
@@ -839,6 +858,12 @@ _make_bootmode_uefi-loong64.systemd-boot.esp() {
         mcopy -i "${efibootimg}" \
             "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" ::/shellloong64.efi
     fi
+    if [[ -e "${profile}/../../extra/ipxe-arch.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/ipxe-arch.efi" "${isofs_dir}/ipxe-arch.efi"
+    fi
+    if [[ -e "${profile}/../../extra/memtest.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/memtest.efi" "${isofs_dir}/memtest.efi"
+    fi
 
     # Copy kernel and initramfs to FAT image.
     # systemd-boot can only access files from the EFI system partition it was launched from.
@@ -877,6 +902,12 @@ _make_bootmode_uefi-loong64.systemd-boot.eltorito() {
     # shellloong64.efi is picked up automatically when on /
     if [[ -e "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" ]]; then
         install -m 0644 -- "${pacstrap_dir}/usr/share/edk2-shell/loongarch64/Shell_Full.efi" "${isofs_dir}/shellloong64.efi"
+    fi
+    if [[ -e "${profile}/../../extra/ipxe-arch.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/ipxe-arch.efi" "${isofs_dir}/ipxe-arch.efi"
+    fi
+    if [[ -e "${profile}/../../extra/memtest.efi" ]]; then
+	install -m 0644 -- "${profile}/../../extra/memtest.efi" "${isofs_dir}/memtest.efi"
     fi
 
     _msg_info "Done!"
